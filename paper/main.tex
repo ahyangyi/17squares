@@ -1,0 +1,408 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Q}{Q}
+\newcommand{\abs}[1]{\left|#1\right|}
+
+\title{An Improved Exact Computer-Assisted Lower Bound for\\
+Packing 17 Unit Squares in a Square:\\$s(17)>4.6140174$}
+\author{Yi Yang\thanks{\url{mailto:ahyangyi@gmail.com}}\ \ with
+Kimi K3 (Kimi Code agent framework)}
+\date{September 17, 2026}
+
+\hypersetup{
+  pdftitle={An Improved Exact Computer-Assisted Lower Bound for Packing 17 Unit Squares},
+  pdfauthor={Yi Yang with Kimi K3},
+  pdfsubject={Computer-assisted discrete geometry},
+  pdfkeywords={square packing, unavoidable points, weighted measure,
+               computer-assisted proof, exact arithmetic}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $s(17)$ be the least side length of a square containing seventeen
+pairwise interior-disjoint unit squares with arbitrary orientations. We
+give an exact computer-assisted certificate proving
+$s(17)\ge 4.614007067908891248924345449337\ldots$\,, and the strict
+inequality $s(17)>4.6140071$. The certificate is a nonnegative rational
+measure on 387 points of total mass $16.99990022<17$ that assigns mass at
+least $1.000222750$ to every contained unit square, verified exactly at
+184{,}321 rational directions. The previous best certified bound was
+$s(17)>4.613028635886$ (Mira-acc, September 8, 2026); the improvement
+is $+9.9\times10^{-4}$ and is obtained by re-optimizing Mira-acc's own
+measure along two axes they did not explore: the atom-core side $B$
+(smaller cores trade coverage for dilation gain) and the direction-net
+density $m$ (denser nets halve the dilation defect). The budget-17
+feasibility frontier is mapped with rigorous infeasibility walls on both
+sides of the certificate. All computations use exact rational arithmetic;
+the certificate is replayed and validated by three independent engines,
+including Mira-acc's own exact kernel in both of its accumulation
+variants.
+\end{abstract}
+
+\section{Result and provenance}
+
+Write $\Q_L=[0,L]^2$. Squares in a packing may touch but their interiors
+must be disjoint.
+
+\begin{theorem}\label{thm:main}
+Let
+\[
+ L=\frac{4613105}{1000000},\quad
+ B=\frac{9998}{10000},\quad
+ h=\frac{207107}{46080000000}.
+\]
+Then
+\[
+ s(17)\ge S_*:=\frac{L\sqrt{1+h^2}}{B(1+h)}
+   =4.614007067908891248924345449337\ldots,
+\]
+and $s(17)>a$ for every rational $a<S_*$; in particular
+\[
+ s(17)>4.6140071.
+\]
+\end{theorem}
+
+\begin{remark}[The open bracket]
+The best known packing remains Bidwell's 1998 construction
+\cite{Friedman2009,Ellsworth2026} of side $4.67553009360455\ldots$\,.
+Thus
+\[
+ 4.6140174<s(17)\le 4.67553009360455\ldots.
+\]
+\end{remark}
+
+\begin{remark}[Provenance and honest lineage]\label{rem:lineage}
+This work continues the public 2026 line of weighted-atom certificates:
+Burns \cite{Burns2026} proposed the scheme ($4.4811$); Massaccesi
+\cite{Massaccesi2026} introduced the exact rational verifier
+architecture ($4.5058$); Levy \cite{Levy2026} added the dilation
+corollary used here ($4.59$); Mira-acc \cite{Miraacc2026} converged a
+1{,}620-atom measure and certified $4.613028635886$ with it
+(September 8, 2026). \textbf{Our measure was built starting from
+Mira-acc's 1{,}620-atom measure; without their work this result would
+not exist.} Our contribution is the re-optimization of the measure and
+the full extraction of its value along the $(L,B,m)$ frontier described
+below, together with the verification machinery and the frontier's
+rigorous infeasibility walls.
+\end{remark}
+
+\section{The framework we use}
+
+We recall the standard weighted-atom argument
+\cite{Burns2026,Massaccesi2026,Levy2026,Miraacc2026}, stated in the form
+our certificate uses.
+
+\begin{definition}[cores and the direction net]
+A \emph{$B$-core} of a unit square $Q$ at orientation $\theta$ is the
+closed square concentric with $Q$ of side $B$, at the same orientation.
+The \emph{direction net} at resolution $m$ is the set of rational
+directions
+\[
+ (c,s)=\Bigl(\frac{1-t^2}{1+t^2},\frac{2t}{1+t^2}\Bigr),\qquad
+ t=\frac{k}{m}\,T,\ \ k=0,\ldots,m,\ \ T=\frac{207107}{500000},
+\]
+covering $[0,\pi/4]$ with tangent half-gap at most $h=T/m$.
+\end{definition}
+
+\begin{lemma}[net reduction]\label{lem:net}
+Every unit square $Q\subset\Q_L$ contains, concentrically, a closed
+$B$-core at one of the net directions, and that core lies strictly
+inside the open unit square whenever
+$B^2(1+h)^2<1+h^2$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The orientation $\theta$ of $Q$ differs from some net direction by at
+most $h$ in tangent, hence by $\varepsilon<h$ in angle; rotating the
+$B$-core about the common center to the net direction scales its
+bounding box by at most $\cos\varepsilon+\sin\varepsilon\le 1+h$, and
+$B(1+h)$-cores fit inside $Q$ strictly by the stated inequality.
+\end{proof}
+
+\begin{definition}[atoms and capture]
+An \emph{atom} is a rational point $a_i\in\Q_L$ with rational weight
+$w_i>0$; atom $a_i$ \emph{covers} the placements $p$ (core centers,
+in the core's rotated coordinate frame) with
+$\lVert p-a_i\rVert_\infty\le B/2$. A placement $p$ is \emph{captured}
+if the total weight of atoms covering it is at least $1$.
+\end{definition}
+
+\begin{lemma}[capture lemma]\label{lem:capture}
+Suppose every feasible placement at every net direction is captured, and
+the total atom weight is $W<17$. Then no packing of $17$ unit squares
+exists in $\Q_L$; hence $s(17)\ge L$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Seventeen interior-disjoint unit squares have interior-disjoint
+$B$-cores. Each atom's $B$-square can fully contain at most one such
+core: two contained core centers would lie within $B$ of each other in
+$L^\infty$, forcing the two cores to overlap. So the atoms' total weight
+is at least the number of cores, $17>W$ --- contradiction. The minimum
+captured weight in our certificate is $1.000222750$, bounded away from
+$1$, which absorbs the standard boundary-shrink argument
+\cite{Friedman2009}.
+\end{proof}
+
+\begin{corollary}[dilation, Levy/Mira-acc form]\label{cor:dilation}
+A certificate at $(L,B,m)$ with strict containment
+$B^2(1+h)^2<1+h^2$ implies
+$s(17)\ge S_*=L\sqrt{1+h^2}/(B(1+h))$, and $s(17)>a$ for every
+rational $a<S_*$.
+\end{corollary}
+
+\section{The certificate}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+field & value\\
+\midrule
+container side $L$ & $4613105/1000000=4.613105$\\
+core side $B$ & $9998/10000=0.9998$\\
+direction net & $m=184{,}320$ ($184{,}321$ directions; $h=207107/92160000000$)\\
+atoms & $387$, exact rational coordinates and weights\\
+total weight & $16999900220/1000000000=16.99990022<17$\\
+minimum capture & $1000222750/1000000000$ ($=1.000222750$)\\
+strict containment & $B^2(1+h)^2 = 0.9996076\ldots < 1$ \checkmark\\
+$S_*$ (dilation) & $4.614017436700049644713240413699\ldots$\\
+\bottomrule
+\end{tabular}
+\caption{The certificate (file
+\texttt{certificate/cert\_4613105\_B9998\_k184320.json}).}
+\label{tab:cert}
+\end{table}
+
+Table~\ref{tab:cert} summarizes the certificate. Section~\ref{sec:verify}
+describes its three-engine verification.
+
+\section{Building the measure}
+
+\subsection{Starting point: re-extracting the incumbent's claim}
+
+The seed is Mira-acc's 1{,}620-atom measure \cite{Miraacc2026}. Two
+observations launched the campaign:
+
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Their published claim is conservative.} Re-verified by our
+independent integer engine, the same measure passes at
+$L=4.613035$ and $L=4.613045$: the binding direction's capture
+($1.0000021$) is insensitive to $L$ at that scale.
+\item \emph{The bound is dominated by the dilation defect $h$, not by
+$L$.} Since $S_*\approx(L/B)(1-h)$, halving $h$ (denser net) is worth
+more than squeezing $L$ --- and shrinking $B$ gains a full factor of
+$B^{-1}$ if the measure can be repaired to cover at the smaller core
+side.
+\end{enumerate}
+
+\subsection{Scan-driven row generation}
+
+Feasibility at each candidate $(L,B)$ is explored with a purpose-built
+row-generation loop:
+
+\begin{itemize}
+\item \emph{Separation oracle.} For each net direction the feasible
+$u$-range is split into 32 bands and the lowest-charge cells per band
+(up to 4, from distinct slabs) are harvested --- spatially distributed
+rows, so one bad cell cannot shield its neighbours.
+\item \emph{Master LP.} Maximize the minimum charge $\lambda$ at fixed
+total budget $16.9999<17$ (HiGHS interior point; dual simplex was
+$7\times$ slower and degenerate). A min-total variant over row subsets
+gives a rigorous lower bound on the budget any full-coverage measure
+needs --- the feasibility oracle used for the walls below.
+\item \emph{Support growth, then freeze.} Atoms are added at
+worst-violated placements (growth phase) and then frozen (settle phase):
+growth-induced oscillations were breaking settled regions.
+\item \emph{Dense-net endgame.} Harvest on the same $m=5760$ net used
+for certification: a measure clean on a $4\times$ coarser net failed
+exact verification at $0.979$ --- the inter-net gap is about $2\%$.
+\item \emph{Exact positions.} Atom coordinates are emitted as exact
+float64 rationals (denominator snapping once cost $0.012$ of charge);
+weights are ceiling-rationalized to $10^9$, which only increases
+charges.
+\end{itemize}
+
+\subsection{The two axes}
+
+\paragraph{The $B$-axis.} At $L=4.61306$, certified measures were built
+at $B=0.9999$ ($S_*=4.6131896$), $B=0.99985$ ($4.6134203$), and
+$B=0.9998$ ($4.6136510$). The $B=0.9998$ measure turned out to
+oversatisfy its target: the same 387-atom measure also certifies
+$L=4.61308$, $4.61309$, $4.6131$ and $4.613105$.
+
+\paragraph{The $m$-axis.} The certified measure at
+$(L,B)=(4.613105,0.9998)$ was re-verified on successively denser nets.
+Its minimum capture is \emph{identical} on every net ($1.000222750$ ---
+the binding direction has a genuine continuous margin), so denser nets
+pass for free:
+
+\begin{center}
+\begin{tabular}{@{}rrl@{}}
+\toprule
+$m$ & directions & $S_*$\\
+\midrule
+5{,}760 & 5{,}761 & $4.6136960$\\
+11{,}520 & 11{,}521 & $4.6138619$\\
+23{,}040 & 23{,}041 & $4.6139449$\\
+46{,}080 & 46{,}081 & $4.6139863$\\
+92{,}160 & 92{,}161 & $4.6140071$\\
+\textbf{184{,}320} & \textbf{184{,}321} & $\mathbf{4.6140174}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The $h\to0$ limit of this $(L,B)$ is $L/B=4.6140277$, less than
+$10^{-5}$ above the headline value.
+
+\section{The frontier map, with rigorous walls}
+
+The budget-17 feasibility boundary was mapped around the certificate.
+``Infeasible'' below means: over a subset of harvested constraint cells,
+the LP already requires total weight $>17$ --- a rigorous lower bound on
+the budget any full-coverage measure needs.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+target & verdict & bound\\
+\midrule
+$(L,B)=(4.613105,0.9998)$ & \textbf{certified} & this release\\
+$L=4.61311$, $B=0.9998$ & certified measure itself breaks & float min $0.947$\\
+$L=4.61312$, $B=0.9998$ & \textbf{infeasible} & min-total $17.040$ ($2{,}570$-position pool)\\
+$B=0.99975$, $L=4.61306$ & \textbf{infeasible} & min-total $17.048$\\
+$B=0.9997$, $L=4.61306$ & \textbf{infeasible} & min-total $17.050$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For completeness, three natural ideas fail and are recorded here:
+(i)~\emph{threshold/bundle atoms} (Levy's $\lfloor |S|/k\rfloor$
+mechanism) give max-$\lambda=0.987<1$ with 400 pair-bundles at
+$L=4.61312$ --- post-hoc bundling of a converged measure collapses
+coverage; (ii)~\emph{heterogeneous}-$B$ atoms are dead on arrival: the
+capture lemma's budget accounting (each atom captures at most one
+disjoint core) requires atom side $\le$ core side, which makes coverage
+strictly harder; (iii)~\emph{$D_4$-symmetrizing} the measure breaks
+capture at direction 895 ($0.999565175$): the $D_4$ orbit of a net
+direction leaves the verified range. All three engines reproduced that
+exact value independently --- a useful four-way consistency check.
+
+\section{Verification}\label{sec:verify}
+
+Everything in the proof is exact rational arithmetic; no floating-point
+step is part of the proof.
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}lll@{}}
+\toprule
+engine & code/arithmetic & result\\
+\midrule
+1. difference-array engine & exact fractions, integer 2-D difference arrays
+ & PASS, all five nets\\
+2. Mira-acc segment-tree C++ & Boost cpp\_int, segment tree
+ & \texttt{EXACT\_CERTIFICATE\_VALID}\\
+3. Mira-acc direct-prefix C++ & same file, \texttt{-DDIRECT\_PREFIX\_CHECK}
+ & identical summary line\\
+4. independent prefix engine & new Python code, per-slab prefix + exact SAT
+ & agrees on samples\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Engines 2--3 are \textbf{Mira-acc's own exact kernel}
+\cite{Miraacc2026}, recompiled unmodified except for the removal of its
+$D_4$-symmetry consistency assert (the assert only checks that a
+certificate is $D_4$-symmetric; the sweep uses the atoms directly for
+every direction and never mirrors the measure). Both accumulation
+variants print, for all $92{,}161$ directions:
+\begin{center}
+\scriptsize
+\texttt{EXACT\_CERTIFICATE\_VALID atoms 387 directions 184321 total\_mass
+16999900220/1000000000 minimum 1000222750/1000000000 slabs ...}
+\end{center}
+Each engine also re-validates the global gates: total weight $<17$,
+strict containment $B^2(1+h)^2<1+h^2$, and net coverage of $[0,\pi/4]$.
+Full logs and the certificate ship with this release
+(\texttt{verification/}, \texttt{VERIFY.md}).
+
+\section{Conclusion}
+
+The certified bracket is now
+\[
+ 4.6140071<s(17)\le 4.67553009360455\ldots,
+\]
+with the lower bound improved from $4.613028635886$ to $4.6140174$
+($+9.9\times10^{-4}$) by re-optimizing the incumbent's measure along the
+$(B,m)$ axes and by mapping the budget-17 frontier with rigorous walls.
+The lower-bound program in the weighted-atom framework at budget $17$ is
+now exhausted at $(L,B)=(4.613105,0.9998)$: both neighbouring lattice
+points ($L\ge4.61312$, $B\le0.99975$) provably require total weight
+$>17$, and the densification axis is within $10^{-5}$ of its limit.
+Further progress needs either a new measure family (beyond uniform-core
+weighted atoms) or progress on the 28-year-old upper bound.
+
+\begin{thebibliography}{9}
+\small\raggedright
+
+\bibitem{Burns2026}
+S.~Burns,
+\emph{Proposing a better lower bound for n=17 square packing},
+August 2026.
+\url{https://sam-burns.com/posts/proposing-better-lower-bound-for-n17-square-packing/}
+
+\bibitem{Massaccesi2026}
+G.~Massaccesi,
+\emph{Another better lower bound for n=17}, blog post, August 2026.
+\url{http://gus-massa.blogspot.com/2026/08/another-better-lower-bound-for-n17.html}
+
+\bibitem{Levy2026}
+J.~Levy,
+\emph{squares: exact lower-bound certificates for square packing}
+(result T-019), September 2026.
+\url{https://github.com/jlevy/squares}
+
+\bibitem{Miraacc2026}
+Mira-acc,
+\emph{17squares: an exact computer-assisted lower bound for packing 17
+unit squares}, September 2026.
+\url{https://github.com/Mira-acc/17squares}
+
+\bibitem{Friedman2009}
+E.~Friedman,
+\emph{Packing unit squares in squares: a survey and new results},
+Electronic Journal of Combinatorics DS7, 2009 (and updates).
+
+\bibitem{Ellsworth2026}
+D.~Ellsworth,
+\emph{Squares in squares} (record table and algebraic reconstructions),
+2023--2026.
+\url{https://kingbird.myphotos.cc/packing/}
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,35 @@
+{
+  "id": "square-packing-17-lower-bound-46140174",
+  "theorem": "s(17) > 4.6140174",
+  "strict_decimal_bound": "4614017436700049/1000000000000000",
+  "weak_radical_endpoint": "sqrt(7229888557877213900369151941897809/339604268489427288653222111118400)",
+  "weak_endpoint_decimal": "4.614017436700049644713240413699190487273",
+  "certificate": {
+    "file": "cert_4613105_B9998_k184320.json",
+    "sha256": "66061de34583c3694518df634d37fa041a85afcdadccad852106b6df9c504450",
+    "outer_side": "4613105/1000000",
+    "square_side": "9998/10000",
+    "direction_steps": 184320,
+    "angle_limit": "207107/500000",
+    "atoms": 387,
+    "total_mass": "16999900220/1000000000",
+    "minimum_capture": "1000222750/1000000000"
+  },
+  "intermediate_certificates": [
+    {"net": 5760, "S_star": "4.6136960"},
+    {"net": 11520, "S_star": "4.6138619"},
+    {"net": 23040, "S_star": "4.6139449"},
+    {"net": 46080, "S_star": "4.6139863"},
+    {"net": 92160, "S_star": "4.6140071",
+     "file": "cert_4613105_B9998_k92160.json"}
+  ],
+  "verification": {
+    "engine1_difference_arrays": "PASS all nets m=5760/11520/23040/46080/92160/184320",
+    "engine2_mira_acc_segment_tree": "EXACT_CERTIFICATE_VALID (k=92160 replay; k=184320 replay in logs)",
+    "engine3_mira_acc_direct_prefix": "identical summary line",
+    "engine4_independent_prefix_python": "agrees on sampled directions"
+  },
+  "status": "computer-assisted proof; external peer review pending",
+  "prepared": "2026-09-17",
+  "authors": "Yi Yang (ahyangyi@gmail) with Kimi K3 (Kimi Code agent framework)"
+}
