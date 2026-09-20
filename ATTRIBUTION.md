@@ -15,36 +15,31 @@ lower bounds. Each component's source is listed here.
 - **Joshua Levy (2026-09)** — the dilation corollary
   S⋆ = L·√(1+h²)/(B(1+h)) used to turn a net certificate into a strict
   bound; certificate 4.59. https://github.com/jlevy/squares
-- **Mira-acc (2026-09-08)** — the 1620-atom measure that seeds our
-  certificate, the (B, m) parameter pattern (their B = 19997/20000,
-  m = 2880), the strict-containment gate B²(1+h)² < 1+h², and the exact
-  C++ kernel used here as an independent cross-check.
+- **Mira-acc (2026-09-08)** — the exactly D4-closed 1620-atom measure
+  that seeds our certificate, the (B, m) parameter pattern, the strict
+  containment gate B²(1+h)² < 1+h², the explicit D4-symmetry requirement
+  for measures on the [0, π/4] net, and the exact C++ kernel used here
+  as an independent cross-check.
   Certificate 4.613028635886. https://github.com/Mira-acc/17squares
 
-## Our contributions (Yi Yang with Kimi K3 / Kimi Code, 2026-09)
+## Our contributions (Kimi K3 / Kimi Code for Yi Yang, 2026-09)
 
-- **Parameter re-extraction** (2026-09-16): the observation that
-  Mira-acc's own measure verifies at larger L on a corrected, denser net
-  (their claim was conservative), and that their B = 99993/100000 at
-  m = 5760 is vacuous (B(1+h) ≥ 1) while B = 9999/10000 is not.
-- **Scan-driven row generation** (`grow_46131.py` in the parent repo):
-  band-harvest separation oracle (spatially distributed lowest cells per
-  u-band, anti-shielding), max-λ master LP (HiGHS interior point),
-  support growth at worst placements followed by a growth-freeze settle
-  phase. Built the 387-atom measure at (L = 4.613105, B = 0.9998) from
+- **Parameter re-extraction**: the observation that Mira-acc's own
+  measure verifies at larger L on a corrected, denser net (their claim
+  was conservative), and that the dilation defect h — not L — dominates
+  the final bound.
+- **The (L, B, m) frontier map**: certified points and rigorous
+  infeasibility walls (min-total over row subsets as a rigorous lower
+  bound on the required budget) at budget 17: B ≤ 0.99975 and L ≥ 4.61312
+  both need > 17.
+- **The symmetric row-generation program** (the main original machinery
+  in this release): an orbit-merged anchored LP over D4 orbits,
+  dip-orbit growth at razor cells, and exact-rational orbit bookkeeping
+  — producing a fully D4-symmetric, deeper-net certificate grown from
   Mira-acc's seed.
-- **The B-axis** (smaller atom squares): trading coverage for dilation
-  gain — the dimension previous certificates did not explore
-  (B = 0.9999 → 0.99985 → 0.9998 certified; B ≤ 0.99975 rigorously
-  infeasible at budget 17).
-- **The m-axis** (denser verify nets): halving the dilation defect h on
-  the same measure (m = 5760 → 92160), recovering most of the remaining
-  dilation loss.
-- **The (L, B, m) frontier map** with rigorous infeasibility walls
-  (min-total over harvested row subsets as a rigorous lower bound on the
-  required budget).
 - **Verification engineering**: exact float64→Fraction atom positions,
-  (L, B)-namespaced crash-resumable checkpoints, parallel exact sweeps.
+  crash-resumable checkpoints, parallel exact sweeps, rejection tests,
+  and the four-engine cross-check suite.
 
 ## Prior art on the upper bound (for context only)
 

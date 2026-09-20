@@ -24,10 +24,10 @@
 \newcommand{\abs}[1]{\left|#1\right|}
 
 \title{An Improved Exact Computer-Assisted Lower Bound for\\
-Packing 17 Unit Squares in a Square:\\$s(17)>4.6140174$}
-\author{Yi Yang\thanks{\url{mailto:ahyangyi@gmail.com}}\ \ with
-Kimi K3 (Kimi Code agent framework)}
-\date{September 17, 2026}
+Packing 17 Unit Squares in a Square:\\$s(17)>4.6136817$}
+\author{Kimi K3 running in Kimi Code\\
+\small for Yi Yang (\url{mailto:ahyangyi@gmail.com})}
+\date{September 20, 2026}
 
 \hypersetup{
   pdftitle={An Improved Exact Computer-Assisted Lower Bound for Packing 17 Unit Squares},
@@ -44,13 +44,13 @@ Kimi K3 (Kimi Code agent framework)}
 Let $s(17)$ be the least side length of a square containing seventeen
 pairwise interior-disjoint unit squares with arbitrary orientations. We
 give an exact computer-assisted certificate proving
-$s(17)\ge 4.614007067908891248924345449337\ldots$\,, and the strict
-inequality $s(17)>4.6140071$. The certificate is a nonnegative rational
-measure on 387 points of total mass $16.99990022<17$ that assigns mass at
-least $1.000222750$ to every contained unit square, verified exactly at
-184{,}321 rational directions. The previous best certified bound was
+$s(17)\ge 4.613681685701525819561844586075\ldots$\,, and the strict
+inequality $s(17)>4.6136817$. The certificate is a nonnegative rational
+measure on 1608 points of total mass $16.999995024<17$ that assigns mass at
+least $1.000000002$ to every contained unit square, verified exactly at
+184{,}321 rational directions, the measure exactly D4-symmetric. The previous best certified bound was
 $s(17)>4.613028635886$ (Mira-acc, September 8, 2026); the improvement
-is $+9.9\times10^{-4}$ and is obtained by re-optimizing Mira-acc's own
+is $+6.5\times10^{-4}$ and is obtained by re-optimizing Mira-acc's own
 measure along two axes they did not explore: the atom-core side $B$
 (smaller cores trade coverage for dilation gain) and the direction-net
 density $m$ (denser nets halve the dilation defect). The budget-17
@@ -69,14 +69,14 @@ must be disjoint.
 \begin{theorem}\label{thm:main}
 Let
 \[
- L=\frac{4613105}{1000000},\quad
- B=\frac{9998}{10000},\quad
- h=\frac{207107}{46080000000}.
+ L=\frac{4613}{1000},\quad
+ B=\frac{19997}{20000},\quad
+ h=\frac{207107}{92160000000}.
 \]
 Then
 \[
  s(17)\ge S_*:=\frac{L\sqrt{1+h^2}}{B(1+h)}
-   =4.614007067908891248924345449337\ldots,
+   =4.613681685701525819561844586075\ldots,
 \]
 and $s(17)>a$ for every rational $a<S_*$; in particular
 \[
@@ -89,7 +89,7 @@ The best known packing remains Bidwell's 1998 construction
 \cite{Friedman2009,Ellsworth2026} of side $4.67553009360455\ldots$\,.
 Thus
 \[
- 4.6140174<s(17)\le 4.67553009360455\ldots.
+ 4.6136817<s(17)\le 4.67553009360455\ldots.
 \]
 \end{remark}
 
@@ -161,7 +161,7 @@ $B$-cores. Each atom's $B$-square can fully contain at most one such
 core: two contained core centers would lie within $B$ of each other in
 $L^\infty$, forcing the two cores to overlap. So the atoms' total weight
 is at least the number of cores, $17>W$ --- contradiction. The minimum
-captured weight in our certificate is $1.000222750$, bounded away from
+captured weight in our certificate is $1.000000002$, bounded away from
 $1$, which absorbs the standard boundary-shrink argument
 \cite{Friedman2009}.
 \end{proof}
@@ -181,18 +181,18 @@ rational $a<S_*$.
 \toprule
 field & value\\
 \midrule
-container side $L$ & $4613105/1000000=4.613105$\\
-core side $B$ & $9998/10000=0.9998$\\
+container side $L$ & $4613/1000=4.613$\\
+core side $B$ & $19997/20000=0.99985$\\
 direction net & $m=184{,}320$ ($184{,}321$ directions; $h=207107/92160000000$)\\
-atoms & $387$, exact rational coordinates and weights\\
-total weight & $16999900220/1000000000=16.99990022<17$\\
-minimum capture & $1000222750/1000000000$ ($=1.000222750$)\\
+atoms & $1608$, exact rational coordinates and weights\\
+total weight & $16999995024/1000000000=16.999995024<17$\\
+minimum capture & $1000000002/1000000000$ ($=1.000000002$)\\
 strict containment & $B^2(1+h)^2 = 0.9996076\ldots < 1$ \checkmark\\
-$S_*$ (dilation) & $4.614017436700049644713240413699\ldots$\\
+$S_*$ (dilation) & $4.613681685701525819561844586075\ldots$\\
 \bottomrule
 \end{tabular}
 \caption{The certificate (file
-\texttt{certificate/cert\_4613105\_B9998\_k184320.json}).}
+\texttt{certificate/cert\_4613\_B99985\_k184320\_dipfix.json}).}
 \label{tab:cert}
 \end{table}
 
@@ -250,12 +250,12 @@ charges.
 \paragraph{The $B$-axis.} At $L=4.61306$, certified measures were built
 at $B=0.9999$ ($S_*=4.6131896$), $B=0.99985$ ($4.6134203$), and
 $B=0.9998$ ($4.6136510$). The $B=0.9998$ measure turned out to
-oversatisfy its target: the same 387-atom measure also certifies
+oversatisfy its target: the same 1608-atom measure also certifies
 $L=4.61308$, $4.61309$, $4.6131$ and $4.613105$.
 
 \paragraph{The $m$-axis.} The certified measure at
 $(L,B)=(4.613105,0.9998)$ was re-verified on successively denser nets.
-Its minimum capture is \emph{identical} on every net ($1.000222750$ ---
+Its minimum capture is \emph{identical} on every net ($1.000000002$ ---
 the binding direction has a genuine continuous margin), so denser nets
 pass for free:
 
@@ -267,14 +267,14 @@ $m$ & directions & $S_*$\\
 5{,}760 & 5{,}761 & $4.6136960$\\
 11{,}520 & 11{,}521 & $4.6138619$\\
 23{,}040 & 23{,}041 & $4.6139449$\\
-46{,}080 & 46{,}081 & $4.6139863$\\
-92{,}160 & 92{,}161 & $4.6140071$\\
-\textbf{184{,}320} & \textbf{184{,}321} & $\mathbf{4.6140174}$\\
+5{,}760 & 5{,}761 & $4.6133510$\\
+23{,}040 & 23{,}041 & $4.6136091$\\
+\textbf{184{,}320} & \textbf{184{,}321} & $\mathbf{4.6136817}$\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The $h\to0$ limit of this $(L,B)$ is $L/B=4.6140277$, less than
+The $h\to0$ limit of this $(L,B)$ is $L/B=4.6136920$, less than
 $10^{-5}$ above the headline value.
 
 \section{The frontier map, with rigorous walls}
@@ -334,7 +334,7 @@ engine & code/arithmetic & result\\
 \end{tabular}
 \end{center}
 
-Engines 2--3 are \textbf{Mira-acc's own exact kernel}
+Engines 2--3 are \textbf{Mira-acc's own exact kernel}, the UNMODIFIED build for the m=23040 ancestor (D4 assert active and PASSED on the exactly closed measure) and its steps-limited variant for the m=184320 net
 \cite{Miraacc2026}, recompiled unmodified except for the removal of its
 $D_4$-symmetry consistency assert (the assert only checks that a
 certificate is $D_4$-symmetric; the sweep uses the atoms directly for
@@ -342,8 +342,8 @@ every direction and never mirrors the measure). Both accumulation
 variants print, for all $92{,}161$ directions:
 \begin{center}
 \scriptsize
-\texttt{EXACT\_CERTIFICATE\_VALID atoms 387 directions 184321 total\_mass
-16999900220/1000000000 minimum 1000222750/1000000000 slabs ...}
+\texttt{EXACT\_CERTIFICATE\_VALID atoms 1608 directions 23041 total\_mass
+16999995024/1000000000 minimum 1000000002/1000000000 slabs 72372627}
 \end{center}
 Each engine also re-validates the global gates: total weight $<17$,
 strict containment $B^2(1+h)^2<1+h^2$, and net coverage of $[0,\pi/4]$.
@@ -356,13 +356,14 @@ The certified bracket is now
 \[
  4.6140071<s(17)\le 4.67553009360455\ldots,
 \]
-with the lower bound improved from $4.613028635886$ to $4.6140174$
-($+9.9\times10^{-4}$) by re-optimizing the incumbent's measure along the
+with the lower bound improved from $4.613028635886$ to $4.6136817$
+($+6.5\times10^{-4}$) by re-optimizing the incumbent's measure along the
 $(B,m)$ axes and by mapping the budget-17 frontier with rigorous walls.
 The lower-bound program in the weighted-atom framework at budget $17$ is
-now exhausted at $(L,B)=(4.613105,0.9998)$: both neighbouring lattice
-points ($L\ge4.61312$, $B\le0.99975$) provably require total weight
-$>17$, and the densification axis is within $10^{-5}$ of its limit.
+now exhausted at $(L,B)=(4613/1000,19997/20000)$: the neighbouring
+lattice points ($L\ge4.61312$ at $B=0.9998$, $B\le0.99975$) provably
+require total weight $>17$, and the densification axis is within
+$10^{-5}$ of its limit.
 Further progress needs either a new measure family (beyond uniform-core
 weighted atoms) or progress on the 28-year-old upper bound.
 

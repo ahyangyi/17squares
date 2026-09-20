@@ -5,7 +5,7 @@ describes the (L, B, m) frontier campaign and its rigorous infeasibility
 walls, and documents the three-engine cross-validation (including
 Mira-acc's own exact kernel replaying the certificate).
 
-The committed PDF is `17squares-lower-bound-46140071.pdf` (5 pages).
+The committed PDF is `17squares-lower-bound-46140174.pdf` (5 pages).
 
 ## Build
 
@@ -13,7 +13,7 @@ Any LaTeX toolchain works, e.g.:
 
 ```bash
 tectonic main.tex        # or: latexmk -pdf main.tex
-cp main.pdf 17squares-lower-bound-46140071.pdf
+cp main.pdf 17squares-lower-bound-46140174.pdf
 ```
 
 ## Proof dependencies

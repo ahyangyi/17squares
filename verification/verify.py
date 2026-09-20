@@ -215,7 +215,7 @@ def main():
     print(f"CERTIFICATE: {'PASS' if ok else 'FAIL'} "
           f"-> s(17) >= {L} = {float(L)}" if ok else "FAIL")
     if ok and stride == 1:
-        print("ALL_EXACT_CHECKS_PASSED_4P6140174")
+        print("ALL_EXACT_CHECKS_PASSED_4P6136817")
     if ok:
         s2, desc = dilation_bound(L, B, kmax)
         a = best_rational_below(s2, 15)

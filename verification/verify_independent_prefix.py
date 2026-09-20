@@ -162,7 +162,7 @@ def main():
     ok = (gmin - gerr) > 1
     print("ARB_VERIFY:", "PASS" if ok else "FAIL", flush=True)
     if ok and args.stride == 1:
-        print("ALL_EXACT_CHECKS_PASSED_4P6140174", flush=True)
+        print("ALL_EXACT_CHECKS_PASSED_4P6136817", flush=True)
     sys.exit(0 if ok else 1)
 
 
