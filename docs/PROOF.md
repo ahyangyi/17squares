@@ -67,7 +67,7 @@ with the strict inequality preserved. Squaring gives the exact rational
              = 72295594391343663886688094912400/3396382365590706673828665905041
 
 and any rational a with a² < S⋆² gives the strict theorem s(17) > a.
-The largest 14-decimal such a is 184547267428061/40000000000000, i.e.
+The largest 15-decimal such a is 184547267428061/40000000000000, i.e.
 s(17) > 4.613681685701525.
 
 ## 5. What is verified mechanically

@@ -3,7 +3,7 @@
   "theorem": "s(17) > 4.6136817",
   "strict_decimal_bound": "184547267428061/40000000000000",
   "weak_radical_endpoint": "sqrt(72295594391343663886688094912400/3396382365590706673828665905041)",
-  "weak_endpoint_decimal": "4.613681685701525819561844586075772002975",
+  "weak_endpoint_decimal": "4.613681685701525819561844586075772002974",
   "certificate": {
     "file": "cert_4613_B99985_k184320_dipfix.json",
     "sha256": "ce236438fcba779684815357825183699130a2a861bde859d0ba76ca0e7971c1",
@@ -19,7 +19,7 @@
   "intermediate_certificates": [
     {
       "net": 5760,
-      "S_star": "4.6133510"
+      "S_star": "4.6133603"
     },
     {
       "net": 23040,
@@ -28,9 +28,9 @@
   ],
   "verification": {
     "engine1_difference_arrays": "combined PASS all 184321 directions, min 1000000002/1e9",
-    "engine2_mira_acc_kernel_original": "EXACT_CERTIFICATE_VALID on all 184321 directions, min 1000000002/1e9 (unmodified kernel, D4 assert active, on the m=23040 ancestor; segment-tree and direct-prefix variants on the full m=184320 net — identical minimum, logs included)",
-    "engine3_mira_acc_direct_prefix": "identical summary line",
-    "engine4_independent_prefix_python": "agrees on sampled directions"
+    "engine2_mira_acc_kernel_segment_tree": "EXACT_CERTIFICATE_VALID on all 184321 directions, min 1000000002/1e9 (unmodified kernel, D4 assert active, on the m=23040 ancestor; segment-tree and direct-prefix variants on the full m=184320 net — identical minimum, logs included)",
+    "engine3_mira_acc_kernel_direct_prefix": "identical summary line",
+    "engine4_independent_prefix_python": "agrees on sampled directions (full sweep impractical for exact Fraction arithmetic; see verification/VERIFY.md section 3)"
   },
   "status": "computer-assisted proof; external peer review pending",
   "prepared": "2026-09-20",

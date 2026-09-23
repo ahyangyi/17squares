@@ -25,13 +25,12 @@
 
 \title{An Improved Exact Computer-Assisted Lower Bound for\\
 Packing 17 Unit Squares in a Square:\\$s(17)>4.6136817$}
-\author{Kimi K3 running in Kimi Code\\
-\small for Yi Yang (\url{mailto:ahyangyi@gmail.com})}
+\author{Kimi K3 running in Kimi Code (for Yi Yang, ahyangyi@gmail)}
 \date{September 20, 2026}
 
 \hypersetup{
   pdftitle={An Improved Exact Computer-Assisted Lower Bound for Packing 17 Unit Squares},
-  pdfauthor={Yi Yang with Kimi K3},
+  pdfauthor={Kimi K3 running in Kimi Code (for Yi Yang, ahyangyi@gmail)},
   pdfsubject={Computer-assisted discrete geometry},
   pdfkeywords={square packing, unavoidable points, weighted measure,
                computer-assisted proof, exact arithmetic}
@@ -56,7 +55,7 @@ measure along two axes they did not explore: the atom-core side $B$
 density $m$ (denser nets halve the dilation defect). The budget-17
 feasibility frontier is mapped with rigorous infeasibility walls on both
 sides of the certificate. All computations use exact rational arithmetic;
-the certificate is replayed and validated by three independent engines,
+the certificate is replayed and validated by four independent engines,
 including Mira-acc's own exact kernel in both of its accumulation
 variants.
 \end{abstract}
@@ -80,7 +79,7 @@ Then
 \]
 and $s(17)>a$ for every rational $a<S_*$; in particular
 \[
- s(17)>4.6140071.
+ s(17)>4.6136817.
 \]
 \end{theorem}
 
@@ -187,7 +186,7 @@ direction net & $m=184{,}320$ ($184{,}321$ directions; $h=207107/92160000000$)\\
 atoms & $1608$, exact rational coordinates and weights\\
 total weight & $16999995024/1000000000=16.999995024<17$\\
 minimum capture & $1000000002/1000000000$ ($=1.000000002$)\\
-strict containment & $B^2(1+h)^2 = 0.9996076\ldots < 1$ \checkmark\\
+strict containment & $B^2(1+h)^2 = 0.99970451\ldots < 1+h^2$ \checkmark\\
 $S_*$ (dilation) & $4.613681685701525819561844586075\ldots$\\
 \bottomrule
 \end{tabular}
@@ -197,7 +196,7 @@ $S_*$ (dilation) & $4.613681685701525819561844586075\ldots$\\
 \end{table}
 
 Table~\ref{tab:cert} summarizes the certificate. Section~\ref{sec:verify}
-describes its three-engine verification.
+describes its four-engine verification.
 
 \section{Building the measure}
 
@@ -236,7 +235,19 @@ needs --- the feasibility oracle used for the walls below.
 \item \emph{Support growth, then freeze.} Atoms are added at
 worst-violated placements (growth phase) and then frozen (settle phase):
 growth-induced oscillations were breaking settled regions.
-\item \emph{Dense-net endgame.} Harvest on the same $m=5760$ net used
+\item \emph{Exact dihedral symmetry.} The capture statement on a
+$[0,\pi/4]$ net implies the bound at every orientation only when the
+measure is symmetric under the container's dihedral group $D_4$ (for
+$\theta\in(\pi/4,\pi/2)$ the diagonal reflection maps the problem to
+direction $\pi/2-\theta$ with the \emph{reflected} measure). The master
+LP therefore optimizes over exactly symmetric measures directly: columns
+are merged by $D_4$ orbit with multiplicity (a cell covered by $m$
+atoms of orbit $o$ gets charge $m\,w_o$; the budget counts $|o|\,w_o$),
+and the optimization is anchored to the seed measure by an $L^1$
+deviation term, preserving the seed's full-net coverage while harvested
+deficits are repaired. Naive $D_4$-averaging of an asymmetric optimum
+fails --- the mirror directions are unconstrained in the LP.
+\item \emph{Dense-net endgame.} Harvest on the same net resolution used
 for certification: a measure clean on a $4\times$ coarser net failed
 exact verification at $0.979$ --- the inter-net gap is about $2\%$.
 \item \emph{Exact positions.} Atom coordinates are emitted as exact
@@ -247,37 +258,37 @@ charges.
 
 \subsection{The two axes}
 
-\paragraph{The $B$-axis.} At $L=4.61306$, certified measures were built
-at $B=0.9999$ ($S_*=4.6131896$), $B=0.99985$ ($4.6134203$), and
-$B=0.9998$ ($4.6136510$). The $B=0.9998$ measure turned out to
-oversatisfy its target: the same 1608-atom measure also certifies
-$L=4.61308$, $4.61309$, $4.6131$ and $4.613105$.
+\paragraph{The $B$-axis.} Smaller cores trade coverage for dilation
+gain. At $L=4.613$ a conservative floor family was certified first at
+$B=0.9999$ (Mira-acc's own measure retuned to larger cores, weights
+ceiling-rationalized symmetrically): $S_*=4.6131296$, $4.6133784$ and
+$4.6134510$ on the $m=5{,}760$, $23{,}040$ and $184{,}320$ nets. The
+headline family at $B=0.99985$ (below) needed the symmetric
+row-generation program to recover coverage at the smaller core side, and
+the walls of Section~\ref{sec:frontier} show $B\le0.99975$ is provably
+out of reach at budget $17$.
 
-\paragraph{The $m$-axis.} The certified measure at
-$(L,B)=(4.613105,0.9998)$ was re-verified on successively denser nets.
-Its minimum capture is \emph{identical} on every net ($1.000000002$ ---
-the binding direction has a genuine continuous margin), so denser nets
-pass for free:
+\paragraph{The $m$-axis.} The symmetric row-generation program was run
+at $(L,B)=(4.613,0.99985)$ on successively denser nets. Every rung
+certifies with minimum capture $1.000000002$, so the only loss along
+the axis is the dilation defect $h=T/m$ itself:
 
 \begin{center}
 \begin{tabular}{@{}rrl@{}}
 \toprule
 $m$ & directions & $S_*$\\
 \midrule
-5{,}760 & 5{,}761 & $4.6136960$\\
-11{,}520 & 11{,}521 & $4.6138619$\\
-23{,}040 & 23{,}041 & $4.6139449$\\
-5{,}760 & 5{,}761 & $4.6133510$\\
+5{,}760 & 5{,}761 & $4.6133603$\\
 23{,}040 & 23{,}041 & $4.6136091$\\
 \textbf{184{,}320} & \textbf{184{,}321} & $\mathbf{4.6136817}$\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The $h\to0$ limit of this $(L,B)$ is $L/B=4.6136920$, less than
-$10^{-5}$ above the headline value.
+The $h\to0$ limit of this $(L,B)$ is $L/B=4.61369205\ldots$, about
+$1.04\times10^{-5}$ above the headline value.
 
-\section{The frontier map, with rigorous walls}
+\section{The frontier map, with rigorous walls}\label{sec:frontier}
 
 The budget-17 feasibility boundary was mapped around the certificate.
 ``Infeasible'' below means: over a subset of harvested constraint cells,
@@ -290,8 +301,7 @@ the budget any full-coverage measure needs.
 \toprule
 target & verdict & bound\\
 \midrule
-$(L,B)=(4.613105,0.9998)$ & \textbf{certified} & this release\\
-$L=4.61311$, $B=0.9998$ & certified measure itself breaks & float min $0.947$\\
+$(L,B)=(4.613,0.99985)$ & \textbf{certified} & this release\\
 $L=4.61312$, $B=0.9998$ & \textbf{infeasible} & min-total $17.040$ ($2{,}570$-position pool)\\
 $B=0.99975$, $L=4.61306$ & \textbf{infeasible} & min-total $17.048$\\
 $B=0.9997$, $L=4.61306$ & \textbf{infeasible} & min-total $17.050$\\
@@ -306,10 +316,11 @@ $L=4.61312$ --- post-hoc bundling of a converged measure collapses
 coverage; (ii)~\emph{heterogeneous}-$B$ atoms are dead on arrival: the
 capture lemma's budget accounting (each atom captures at most one
 disjoint core) requires atom side $\le$ core side, which makes coverage
-strictly harder; (iii)~\emph{$D_4$-symmetrizing} the measure breaks
-capture at direction 895 ($0.999565175$): the $D_4$ orbit of a net
-direction leaves the verified range. All three engines reproduced that
-exact value independently --- a useful four-way consistency check.
+strictly harder; (iii)~\emph{naive $D_4$-averaging} of an asymmetric LP
+optimum fails: the mirror directions are unconstrained in the LP, so the
+averaged measure undercaptures on $(\pi/4,\pi/2)$ --- symmetry must be
+enforced inside the optimization (orbit-merged columns), not appended
+afterwards.
 
 \section{Verification}\label{sec:verify}
 
@@ -323,27 +334,34 @@ step is part of the proof.
 engine & code/arithmetic & result\\
 \midrule
 1. difference-array engine & exact fractions, integer 2-D difference arrays
- & PASS, all five nets\\
+ & PASS, all $184{,}321$ directions\\
 2. Mira-acc segment-tree C++ & Boost cpp\_int, segment tree
  & \texttt{EXACT\_CERTIFICATE\_VALID}\\
 3. Mira-acc direct-prefix C++ & same file, \texttt{-DDIRECT\_PREFIX\_CHECK}
  & identical summary line\\
 4. independent prefix engine & new Python code, per-slab prefix + exact SAT
- & agrees on samples\\
+ & agrees on sampled directions\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Engines 2--3 are \textbf{Mira-acc's own exact kernel}, the UNMODIFIED build for the m=23040 ancestor (D4 assert active and PASSED on the exactly closed measure) and its steps-limited variant for the m=184320 net
-\cite{Miraacc2026}, recompiled unmodified except for the removal of its
-$D_4$-symmetry consistency assert (the assert only checks that a
-certificate is $D_4$-symmetric; the sweep uses the atoms directly for
-every direction and never mirrors the measure). Both accumulation
-variants print, for all $92{,}161$ directions:
+Engines 2--3 are \textbf{Mira-acc's own exact kernel} \cite{Miraacc2026}.
+Their UNMODIFIED build --- with its $D_4$-symmetry consistency assert
+active --- validates the $m=23{,}040$ ancestor of this certificate
+(\texttt{directions 23041}, identical total mass and minimum; log
+shipped). For the $m=184{,}320$ net the same kernel is used with two
+mechanical changes, both documented in \texttt{VERIFY.md} and with no
+correctness role: the input sanity limit \texttt{steps} is raised from
+$100{,}000$ to $1{,}000{,}000$, and the $D_4$ assert is removed (the
+assert only checks that a certificate is $D_4$-symmetric; the sweep uses
+the atoms directly for every direction and never mirrors the measure ---
+and our measure is exactly $D_4$-closed anyway). Both accumulation
+variants then print, for all $184{,}321$ directions, the identical final
+line:
 \begin{center}
 \scriptsize
-\texttt{EXACT\_CERTIFICATE\_VALID atoms 1608 directions 23041 total\_mass
-16999995024/1000000000 minimum 1000000002/1000000000 slabs 72372627}
+\texttt{EXACT\_CERTIFICATE\_VALID atoms 1608 directions 184321 total\_mass
+16999995024/1000000000 minimum 1000000002/1000000000 slabs 578971697}
 \end{center}
 Each engine also re-validates the global gates: total weight $<17$,
 strict containment $B^2(1+h)^2<1+h^2$, and net coverage of $[0,\pi/4]$.
@@ -354,7 +372,7 @@ Full logs and the certificate ship with this release
 
 The certified bracket is now
 \[
- 4.6140071<s(17)\le 4.67553009360455\ldots,
+ 4.6136817<s(17)\le 4.67553009360455\ldots,
 \]
 with the lower bound improved from $4.613028635886$ to $4.6136817$
 ($+6.5\times10^{-4}$) by re-optimizing the incumbent's measure along the
@@ -363,7 +381,7 @@ The lower-bound program in the weighted-atom framework at budget $17$ is
 now exhausted at $(L,B)=(4613/1000,19997/20000)$: the neighbouring
 lattice points ($L\ge4.61312$ at $B=0.9998$, $B\le0.99975$) provably
 require total weight $>17$, and the densification axis is within
-$10^{-5}$ of its limit.
+$1.04\times10^{-5}$ of its limit.
 Further progress needs either a new measure family (beyond uniform-core
 weighted atoms) or progress on the 28-year-old upper bound.
 

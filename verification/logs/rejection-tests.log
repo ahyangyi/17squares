@@ -1,0 +1,16 @@
+--- corrupted variant: mass17 ---
+ok: engine1 (verify.py) refused as required (exit 1)
+ok: mira-acc segment tree refused as required (exit 1)
+ok: mira-acc direct prefix refused as required (exit 1)
+ok: independent prefix refused as required (exit 1)
+--- corrupted variant: vacuousB ---
+ok: engine1 (verify.py) refused as required (exit 1)
+ok: mira-acc segment tree refused as required (exit 1)
+ok: mira-acc direct prefix refused as required (exit 1)
+ok: independent prefix refused as required (exit 1)
+--- corrupted variant: undercapture ---
+ok: engine1 (verify.py) refused as required (exit 1)
+ok: mira-acc segment tree refused as required (exit 2)
+ok: mira-acc direct prefix refused as required (exit 2)
+ok: independent prefix refused as required (exit 1)
+ALL_REJECTION_TESTS_PASSED

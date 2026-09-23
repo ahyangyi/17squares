@@ -72,14 +72,14 @@ at (L = 4613/1000, B = 19997/20000) with total < 17.
 - Duplicate dihedral images are deduped to match the LP budget exactly.
 - The certificate needs the "M" field for `exact_verify`.
 - Ceil-rationalization of weights only increases charges; total kept
-  ≤ 16.999995048 < 17.
+  ≤ 16.999995024 < 17.
 
 ## The (L, B, m) frontier (certified and walled)
 
 | (L, B) | net m | outcome | S⋆ |
 |---|---|---|---|
 | (4.613, 0.9999) | 5760/23040/184320 | certified (floor) | 4.6131296 / 4.6133784 / **4.6134510** |
-| **(4.613, 0.99985)** | 5760 | certified | 4.6133510 |
+| **(4.613, 0.99985)** | 5760 | certified | 4.6133603 |
 | **(4.613, 0.99985)** | 23040 | certified | 4.6136091 |
 | **(4.613, 0.99985)** | **184320** | **certified (this release)** | **4.6136817** |
 | (4.61312, 0.9998) | — | **infeasible** (min-total 17.04 > 17) | — |
@@ -87,8 +87,9 @@ at (L = 4613/1000, B = 19997/20000) with total < 17.
 
 ## Reproducibility
 
-Everything needed is in this directory: the certificate, the four
-engines, the rejection tests, and their full logs. The search machinery
-(row generation, frontier scans, the full attack log with all campaign
-data) lives in the parent repository, see
-`docs/research/07-lower-bound-attack.md` there.
+Everything needed to check the result is in this directory: the
+certificate, the four engines, the rejection tests, and their full
+logs. The search machinery that produced the measure (row generation,
+frontier scans, campaign logs) is not part of this release; only its
+output — the certificate — is, and the certificate is what the proof
+stands on.

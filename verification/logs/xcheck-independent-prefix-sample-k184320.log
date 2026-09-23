@@ -1,0 +1,13 @@
+atoms = 1608, total weight = 16999995024/1000000000 = 16.999995024
+net = 184321 directions, B(1+h) = 0.999852247 (< 1: True)
+dir 0/184321: current min 1.000024264 (err 0.0e+00)
+dir 23040/184321: current min 1.000024264 (err 0.0e+00)
+dir 46080/184321: current min 1.000024264 (err 0.0e+00)
+dir 69120/184321: current min 1.000024264 (err 0.0e+00)
+dir 92160/184321: current min 1.000000003 (err 0.0e+00)
+dir 115200/184321: current min 1.000000002 (err 0.0e+00)
+dir 138240/184321: current min 1.000000002 (err 0.0e+00)
+dir 161280/184321: current min 1.000000003 (err 0.0e+00)
+dir 184320/184321: current min 1.000000005 (err 0.0e+00)
+ARB_RESULT min = 1.000000002000 at dir 115200, ball radius 0.0e+00, margin_above_1 = 2.000e-09
+ARB_VERIFY: PASS

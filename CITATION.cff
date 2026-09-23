@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: >-
+  If you use this certificate or its verification suite, please cite it
+  as below.
+type: software
+title: >-
+  A certified lower bound s(17) > 4.6136817 for the square packing
+  problem (17 unit squares in the smallest square)
+abstract: >-
+  An exactly D4-symmetric weighted-atom certificate (1608 rational
+  atoms, total mass 16999995024/1000000000 < 17, minimum captured weight
+  1000000002/1000000000) over a 184320-step rational direction net,
+  proving s(17) > 184547267428061/40000000000000 = 4.613681685701525
+  (strict), with certified endpoint S* = 4.61368168570152581956184458...
+  Verified by four independent engines, including Mira-acc's own exact
+  C++ kernel. Computer-assisted proof; external peer review pending.
+authors:
+  - name: "Kimi K3 running in Kimi Code (for Yi Yang, ahyangyi@gmail)"
+version: 1.1.1
+date-released: "2026-09-20"
+license: CC-BY-4.0
+repository-code: "https://github.com/ahyangyi/17squares"
+keywords:
+  - square packing
+  - lower bound
+  - computer-assisted proof
+  - exact certificate
+  - weighted unavoidable points

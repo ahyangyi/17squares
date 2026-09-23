@@ -22,7 +22,7 @@ lower bounds. Each component's source is listed here.
   as an independent cross-check.
   Certificate 4.613028635886. https://github.com/Mira-acc/17squares
 
-## Our contributions (Kimi K3 / Kimi Code for Yi Yang, 2026-09)
+## Our contributions (Kimi K3 running in Kimi Code, for Yi Yang, ahyangyi@gmail — 2026-09)
 
 - **Parameter re-extraction**: the observation that Mira-acc's own
   measure verifies at larger L on a corrected, denser net (their claim

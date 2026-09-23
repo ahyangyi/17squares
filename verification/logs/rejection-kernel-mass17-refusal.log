@@ -1,0 +1,2 @@
+CERTIFICATE_REFUSED total mass must be strictly less than 17
+exit=1

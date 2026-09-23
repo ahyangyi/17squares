@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Exact integer verifier for the s(17) > 4.6140071 weighted certificate.
+"""Exact integer verifier for the s(17) > 4.6136817 weighted certificate.
 
-Primary engine of Yi Yang's square-packing project
-(built with Kimi K3 / Kimi Code).
-Self-contained single file (the verification-critical functions are
-verbatim copies from src/lowerbound.py; lineage notes in README.md):
+Primary engine, by Kimi K3 running in Kimi Code
+(for Yi Yang, ahyangyi@gmail).
+Self-contained single file (the verification-critical functions originate
+from the project's search code; lineage notes in ../ATTRIBUTION.md):
 
   * capture scheme: weighted unavoidable atoms, after Burns 2026 /
     Massaccesi 2026 / Levy 2026 / Mira-acc 2026 (re-implemented);
@@ -177,7 +177,7 @@ def verify_orientation(c, s, L: F, B: F, atoms, scale: int,
 # --------------------------------------------------------------------- main
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else \
-        "../certificate/cert_4613105_B9998_k92160.json"
+        "../certificate/cert_4613_B99985_k184320_dipfix.json"
     cert = json.load(open(path))
     L, B = F(cert["L"]), F(cert["B"])
     kmax, S = int(cert["kmax"]), int(cert["scale"])

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Independent exact verifier for the s(17) > 4.6140071 weighted
+"""Independent exact verifier for the s(17) > 4.6136817 weighted
 certificate (engine 3 in the cross-check suite).
 
-Shares NO code with the primary integer engine (src/lowerbound.py):
+Shares NO code with the primary integer engine (verify.py):
 the minimum charge is computed by DIRECT PREFIX ACCUMULATION per u-slab
 (one-dimensional sweep with polygon clipping), not by the 2-D
 difference-array method of the primary engine.  Arithmetic is exact
@@ -11,7 +11,7 @@ exactly rational, so this is a proof, not an estimate).  An earlier draft
 used flint arb balls; the certificate's full rationality makes ball
 arithmetic unnecessary -- exact Fraction is strictly stronger.
 
-Usage: python tools/verify_lb_arb.py CERT.json [--stride K] [--dirs K0 K1]
+Usage: python3 verify_independent_prefix.py CERT.json [--stride K] [--dirs K0 K1]
 """
 import argparse
 import json

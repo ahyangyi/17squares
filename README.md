@@ -1,9 +1,9 @@
-# s(17) > 4.6136817 — a new certified lower bound for packing 17 unit squares (corrected release)
+# s(17) > 4.6136817 — a new certified lower bound for packing 17 unit squares
 
 **Claim.** Every square that contains 17 interior-disjoint unit squares has
 side length at least
 
-    s(17) ≥ S⋆ = 4.613681685701525819561844586075772002975…
+    s(17) ≥ S⋆ = 4.613681685701525819561844586075772002974…
 
 with s(17)² ≥ 72295594391343663886688094912400/3396382365590706673828665905041
 and s(17) > 184547267428061/40000000000000 = 4.613681685701525 (strict).
@@ -42,15 +42,20 @@ cd verification
 python3 verify.py ../certificate/cert_4613_B99985_k184320_dipfix.json
 ```
 
-Expected tail (full logs in `verification/logs/`):
+Expected tail of a full (stride-1) run (full logs in `verification/logs/`):
 
 ```
 minimum score = 1000000002/1000000000 = 1.000000002
 CERTIFICATE: PASS -> s(17) >= 4613/1000 = 4.613
-ALL_EXACT_CHECKS_PASSED_4P6140174
+ALL_EXACT_CHECKS_PASSED_4P6136817
 dilation: L*sqrt(1+h^2)/(B*(1+h)) with L=4613/1000, B=19997/20000, h=207107/92160000000
+  s(17) >= sqrt(72295594391343663886688094912400/3396382365590706673828665905041)
   s(17) > 184547267428061/40000000000000 = 4.613681685701525 (strict)
 ```
+
+(The marker `ALL_EXACT_CHECKS_PASSED_4P6136817` prints only on the full
+stride-1 sweep; `--stride K` runs a K-thinned smoke test in minutes.
+Requires Python ≥ 3.10 with numpy.)
 
 Cross-checks (logs included):
 
@@ -101,6 +106,15 @@ Mira-acc** (see ATTRIBUTION.md). Concretely, this project:
   rejection tests, and full logs.
 - `docs/` — method and proof write-ups.
 - `ATTRIBUTION.md` — per-component inspiration and source links.
+- `CITATION.cff` — citation metadata (GitHub/Zenodo ingestible).
+
+## License and reuse
+
+Everything in this directory — the certificate, the paper, the
+verification engines, and the logs — is released under **CC BY 4.0**
+(see `LICENSE`). Third-party registries and archives are explicitly
+welcome to vendor the certificate and verification materials with
+attribution, following the community's cross-vendoring convention.
 
 *Prepared 2026-09-20 by Kimi K3 running in Kimi Code
 (for Yi Yang, ahyangyi@gmail).*
